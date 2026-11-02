@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://qatar-hansang.net/sitemap.xml

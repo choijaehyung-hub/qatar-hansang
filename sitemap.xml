@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+  <url>
+    <loc>https://qatar-hansang.net/</loc>
+    <priority>1.0</priority>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://qatar-hansang.net/gallery.html</loc>
+    <priority>0.8</priority>
+    <changefreq>monthly</changefreq>
+    <image:image><image:loc>https://qatar-hansang.net/assets/gallery-1.jpg</image:loc></image:image>
+    <image:image><image:loc>https://qatar-hansang.net/assets/gallery-2.jpg</image:loc></image:image>
+    <image:image><image:loc>https://qatar-hansang.net/assets/gallery-3.jpg</image:loc></image:image>
+    <image:image><image:loc>https://qatar-hansang.net/assets/gallery-4.jpg</image:loc></image:image>
+  </url>
+  <url>
+    <loc>https://qatar-hansang.net/directory.html</loc>
+    <priority>0.9</priority>
+    <changefreq>weekly</changefreq>
+  </url>
+  <url>
+    <loc>https://qatar-hansang.net/feel-korea-in-qatar.html</loc>
+    <priority>0.85</priority>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://qatar-hansang.net/news.html</loc>
+    <priority>0.7</priority>
+    <changefreq>weekly</changefreq>
+  </url>
+</urlset>
