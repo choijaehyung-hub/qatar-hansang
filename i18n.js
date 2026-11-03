@@ -1,13 +1,12 @@
 /* =====================================================================
    Qatar-Hansang — lang/i18n.js
-   Central English ↔ Korean translation dictionary.
+   Central English → Korean translation dictionary.
    ===================================================================== */
 window.QH_I18N = {
   /* ---------- SHARED: topbar / header / nav / footer ---------- */
   "한상 · Qatar & Korea": "한상 · 카타르 & 한국",
   "14th floor, Commercial Bank Plaza, West Bay, Doha, Qatar":
     "카타르 도하 웨스트베이 커머셜 뱅크 플라자 14층",
-  "+974 3307 7269": "+974 3307 7269",
   "Home": "홈",
   "About": "소개",
   "Feel Korea in Qatar": "카타르에서 체험하는 한국",
@@ -171,38 +170,5 @@ window.QH_I18N = {
     "카타르에서 체험하는 한국 가이드 출시",
   "A new guide to Korean restaurants, shops, services and organizations in Qatar is now available — see the":
     "카타르의 한식당, 매장, 서비스, 단체를 소개하는 새 가이드가 공개되었습니다 — 다음을 참고하세요",
-  "Press enquiries: visit": "언론 문의: 방문",
-
-  /* ---------- FEEL KOREA IN QATAR (dynamic list + filters) ---------- */
-  "Details": "상세",
-  "Scan or click a QR code to open the place":
-    "QR 코드를 찍거나 클릭하면 바로 연결됩니다",
-  "A guide to Korean restaurants, shops, services and organizations in Qatar. Numbers match the map.":
-    "카타르의 한식당, 매장, 서비스, 단체 안내입니다. 번호는 지도와 일치합니다.",
-  "Tap the map to enlarge": "지도를 누르면 확대됩니다",
-  "Download Map": "지도 다운로드",
-  "Map © OpenStreetMap contributors · Last updated 22 October 2026":
-    "지도 © OpenStreetMap contributors · 최신 업데이트 2026년 10월 22일",
-  "All": "전체",
-  "Government": "정부기관",
-  "Korea-Related Organizations & Groups": "한국 관련 단체·모임",
-  "Authentic Korean Restaurant": "한식당",
-  "Café & Dessert": "카페·디저트",
-  "Korean Mart": "한국 마트",
-  "Hanwoo (Korean Beef)": "한우",
-  "Hospitals & Clinics": "의료",
-  "Education": "교육",
-  "Life, Culture & Sports": "생활·문화·스포츠",
-  "Travel to Korea & Qatar": "한국·카타르 여행",
-  "Korean Electronics & Car Showrooms": "한국 가전·자동차 매장",
-  "K-Beauty Korean Brand Stores": "K-뷰티 한국 브랜드 매장",
-  "Coming Soon": "오픈 예정",
-  "No fixed venue": "장소 수시 변경",
-  "DM order · pickup": "DM 주문·픽업",
-  "Hanwoo pre-order now · available from late November":
-    "한우 사전 주문 접수 중 · 11월 말부터 판매",
-  "Korean · TOPIK": "한국어 · TOPIK",
-  "Korea Trade-Investment Promotion Agency": "대한무역투자진흥공사",
-  "Google Maps": "구글 지도",
-  "Instagram": "인스타그램"
+  "Press enquiries: visit": "언론 문의: 방문"
 };
