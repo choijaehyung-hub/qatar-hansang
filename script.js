@@ -1,7 +1,7 @@
 /* =====================================================================
    Qatar-Hansang — script.js
-   Powers: hero slideshow, mobile menu, language switch,
-           photo lightbox, directory filter, smooth scrolling.
+   Powers: hero slideshow, mobile menu, photo lightbox,
+           directory filter, smooth scrolling, active nav highlight.
    ===================================================================== */
 (function () {
   "use strict";
@@ -20,20 +20,14 @@
       slides.forEach((s, idx) => s.classList.toggle("on", idx === current));
       dots.forEach((d, idx) => d.classList.toggle("on", idx === current));
     }
-
     function next() { show(current + 1); }
-
-    function start() {
-      stop();
-      timer = setInterval(next, 6000);
-    }
+    function start() { stop(); timer = setInterval(next, 6000); }
     function stop() { if (timer) clearInterval(timer); timer = null; }
 
     dots.forEach((dot, i) => {
       dot.addEventListener("click", () => { show(i); start(); });
     });
 
-    // Pause when the tab is hidden to save CPU
     document.addEventListener("visibilitychange", () => {
       document.hidden ? stop() : start();
     });
@@ -51,38 +45,12 @@
       const open = nav.classList.toggle("open");
       btn.setAttribute("aria-expanded", String(open));
     });
-    // Close menu when a link is clicked
     nav.addEventListener("click", (e) => {
       if (e.target.tagName === "A") nav.classList.remove("open");
     });
   })();
 
-  /* ---------- 3. Language switcher ---------- */
-  (function languageSwitch() {
-    const buttons = document.querySelectorAll(".lang button[data-l]");
-    if (!buttons.length) return;
-
-    const dict = {
-      en: {},                       // English = original text, no swap needed
-      ko: {},                       // Place translations here if desired
-      ar: {}
-    };
-
-    function apply(lang) {
-      buttons.forEach(b => b.classList.toggle("on", b.dataset.l === lang));
-      document.documentElement.lang = lang;
-      document.documentElement.dir = lang === "ar" ? "rtl" : "ltr";
-      // If you add translations, walk [data-i18n] keys here:
-      // document.querySelectorAll("[data-i18n]").forEach(el => {
-      //   const k = el.dataset.i18n;
-      //   if (dict[lang][k]) el.textContent = dict[lang][k];
-      // });
-    }
-
-    buttons.forEach(b => b.addEventListener("click", () => apply(b.dataset.l)));
-  })();
-
-  /* ---------- 4. Photo lightbox ---------- */
+  /* ---------- 3. Photo lightbox ---------- */
   (function photoLightbox() {
     const lb = document.getElementById("lb");
     if (!lb) return;
@@ -116,7 +84,7 @@
     });
   })();
 
-  /* ---------- 5. Business Directory filter ---------- */
+  /* ---------- 4. Business Directory filter ---------- */
   (function directoryFilter() {
     const searchInput = document.querySelector('.controls input[type="search"], .controls input[type="text"]');
     const countrySel  = document.querySelector(".controls select[name='country'], .controls select#country");
@@ -148,7 +116,7 @@
     industrySel?.addEventListener("change", apply);
   })();
 
-  /* ---------- 6. Smooth scroll for in-page anchors ---------- */
+  /* ---------- 5. Smooth scroll for in-page anchors ---------- */
   (function smoothAnchors() {
     document.querySelectorAll('a[href^="#"]').forEach(a => {
       a.addEventListener("click", (e) => {
@@ -163,4 +131,34 @@
       });
     });
   })();
+
+  /* ---------- 6. Active nav highlight ---------- */
+  (function activeNav() {
+    const navLinks = document.querySelectorAll(".navrow nav a, nav#hn a");
+    if (!navLinks.length) return;
+
+    const path = location.pathname.split("/").pop() || "index.html";
+    const hash = location.hash || "";
+
+    function isActive(href) {
+      const [file, frag] = href.split("#");
+      const targetFile = file || "index.html";
+      const targetHash = frag ? "#" + frag : "";
+
+      // Case 1: link has a hash — match only when current URL has the same hash
+      if (targetHash) {
+        return (path === targetFile || (targetFile === "index.html" && path === ""))
+               && hash === targetHash;
+      }
+
+      // Case 2: plain page link — match only when URL has no hash
+      return path === targetFile && !hash;
+    }
+
+    navLinks.forEach(a => {
+      a.classList.remove("on");
+      if (isActive(a.getAttribute("href"))) a.classList.add("on");
+    });
+  })();
+
 })();
