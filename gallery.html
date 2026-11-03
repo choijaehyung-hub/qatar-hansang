@@ -10,15 +10,11 @@
 <meta property="og:url" content="https://qatar-hansang.net/gallery.html">
 <meta property="og:type" content="website">
 <meta property="og:image" content="https://qatar-hansang.net/gallery-1.jpg">
-<meta property="og:image" content="https://qatar-hansang.net/gallery-2.jpg">
-<meta property="og:image" content="https://qatar-hansang.net/gallery-3.jpg">
-<meta property="og:image" content="https://qatar-hansang.net/gallery-4.jpg">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="logo.jpg">
 <link rel="apple-touch-icon" href="logo.jpg">
 <link rel="stylesheet" href="style.css">
 <style>
-  /* --- GALLERY LOCAL STYLES --- */
   .albumwrap {
     background: #fcf9f6;
     border: 1px solid #ece5dd;
@@ -26,16 +22,8 @@
     padding: 24px;
     margin-bottom: 24px;
   }
-  .albumwrap h3 {
-    margin: 0 0 6px;
-    font-size: 1.15rem;
-    color: #1a2236;
-  }
-  .albumwrap .alsub {
-    margin: 0 0 18px;
-    font-size: 0.88rem;
-    color: #897b6d;
-  }
+  .albumwrap h3 { margin: 0 0 6px; font-size: 1.15rem; color: #1a2236; }
+  .albumwrap .alsub { margin: 0 0 18px; font-size: 0.88rem; color: #897b6d; }
   .album {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
@@ -66,14 +54,7 @@
     color: #5a4f44;
     text-align: center;
   }
-
-  /* Show gallery button (below the gallery grid) */
-  .show-gallery-wrap {
-    text-align: center;
-    margin: 32px 0 10px;
-  }
-
-  /* Back to top link */
+  .show-gallery-wrap { text-align: center; margin: 32px 0 10px; }
   .back-top {
     display: block;
     text-align: center;
@@ -97,7 +78,6 @@
   <div class="lang" role="group" aria-label="Language">
     <button type="button" data-l="en" class="on">EN</button>
     <button type="button" data-l="ko">한국어</button>
-    <button type="button" data-l="ar">العربية</button>
   </div>
 </div></div>
 
@@ -153,7 +133,6 @@
     </div>
   </div>
 
-  <!-- Show gallery button BELOW the gallery -->
   <div class="show-gallery-wrap">
     <a href="gallery.html" class="btn g" style="padding:14px 40px; font-size:16px;">Show Gallery ↓</a>
   </div>
@@ -185,6 +164,8 @@
   <button type="button" aria-label="Close">×</button>
   <img alt="">
 </div>
+<script src="lang/i18n.js"></script>
+<script src="lang/i18n-init.js"></script>
 <script src="script.js" defer></script>
 <!-- ============ SHARED FOOTER END ============ -->
 </body>
