@@ -1,27 +1,20 @@
 
-/* Qatar-Hansang bilingual language engine */
 (function () {
   "use strict";
 
   const KEY = "qh_lang";
   const DICT = window.QH_I18N || {};
+  const originalText = new WeakMap();
+  const originalAttrs = new WeakMap();
 
-  function getLang() {
-    try {
-      return localStorage.getItem(KEY) === "ko" ? "ko" : "en";
-    } catch (e) {
-      return "en";
-    }
-  }
-
-  function translateText(value, lang) {
-    if (lang !== "ko") return value;
+  function translate(value, lang) {
+    if (lang === "en") return value;
     return Object.prototype.hasOwnProperty.call(DICT, value)
       ? DICT[value]
       : value;
   }
 
-  function translateNode(root, lang) {
+  function translateText(root, lang) {
     if (!root) return;
 
     const walker = document.createTreeWalker(
@@ -36,19 +29,20 @@
     while ((node = walker.nextNode())) {
       const parent = node.parentElement;
 
-      if (!parent) continue;
-      if (parent.closest("script, style, noscript")) continue;
-      if (parent.closest(".lang")) continue;
+      if (
+        !parent ||
+        parent.closest("script, style, noscript, .lang")
+      ) continue;
 
       nodes.push(node);
     }
 
     nodes.forEach(function (item) {
-      if (!item.dataset.qhOriginal) {
-        item.dataset.qhOriginal = item.nodeValue;
+      if (!originalText.has(item)) {
+        originalText.set(item, item.nodeValue);
       }
 
-      const original = item.dataset.qhOriginal;
+      const original = originalText.get(item);
       const trimmed = original.trim();
 
       if (!trimmed) return;
@@ -57,24 +51,26 @@
       const trailing = original.match(/\s*$/)[0];
 
       item.nodeValue =
-        leading + translateText(trimmed, lang) + trailing;
+        leading + translate(trimmed, lang) + trailing;
     });
   }
 
-  function applyAttributes(lang) {
-    document.querySelectorAll("[placeholder], [aria-label]").forEach(function (el) {
+  function translateAttributes(root, lang) {
+    root.querySelectorAll("[placeholder], [aria-label]").forEach(function (el) {
       ["placeholder", "aria-label"].forEach(function (attr) {
         if (!el.hasAttribute(attr)) return;
 
-        const key = "qhOriginal" + attr;
-        if (!el.dataset[key]) {
-          el.dataset[key] = el.getAttribute(attr);
+        if (!originalAttrs.has(el)) {
+          originalAttrs.set(el, {});
         }
 
-        el.setAttribute(
-          attr,
-          translateText(el.dataset[key], lang)
-        );
+        const saved = originalAttrs.get(el);
+
+        if (!(attr in saved)) {
+          saved[attr] = el.getAttribute(attr);
+        }
+
+        el.setAttribute(attr, translate(saved[attr], lang));
       });
     });
   }
@@ -85,60 +81,55 @@
     document.documentElement.lang = lang;
     document.documentElement.dir = "ltr";
 
-    translateNode(document.body, lang);
-    applyAttributes(lang);
+    translateText(document.body, lang);
+    translateAttributes(document.body, lang);
 
     document.querySelectorAll(".lang button[data-l]").forEach(function (button) {
       const active = button.dataset.l === lang;
       button.classList.toggle("on", active);
       button.setAttribute("aria-pressed", String(active));
     });
-  }
-
-  function setLanguage(lang) {
-    lang = lang === "ko" ? "ko" : "en";
 
     try {
       localStorage.setItem(KEY, lang);
     } catch (e) {}
-
-    applyLanguage(lang);
 
     document.dispatchEvent(
       new CustomEvent("qh:langchange", { detail: lang })
     );
   }
 
-  // Event delegation: works even if buttons are added later.
-  document.addEventListener("click", function (event) {
-    const button = event.target.closest(".lang button[data-l]");
-    if (!button) return;
-
-    event.preventDefault();
-    setLanguage(button.dataset.l);
-  });
-
   function initialise() {
-    const urlLang = new URLSearchParams(location.search).get("lang");
+    // Delegated click handler
+    document.addEventListener("click", function (event) {
+      const button = event.target.closest(".lang button[data-l]");
+      if (button) applyLanguage(button.dataset.l);
+    });
 
-    if (urlLang === "ko" || urlLang === "en") {
-      try {
-        localStorage.setItem(KEY, urlLang);
-      } catch (e) {}
-    }
+    // Apply saved language
+    let lang = "en";
 
-    applyLanguage(getLang());
+    try {
+      const urlLang = new URLSearchParams(location.search).get("lang");
+      lang = urlLang || localStorage.getItem(KEY) || "en";
+    } catch (e) {}
 
-    // Translate newly added page content.
-    const observer = new MutationObserver(function (mutations) {
-      const lang = getLang();
+    applyLanguage(lang);
 
-      mutations.forEach(function (mutation) {
-        mutation.addedNodes.forEach(function (added) {
+    // Translate newly added page content
+    const observer = new MutationObserver(function (records) {
+      const langNow = document.documentElement.lang || "en";
+
+      records.forEach(function (record) {
+        record.addedNodes.forEach(function (added) {
           if (added.nodeType === Node.ELEMENT_NODE) {
-            translateNode(added, lang);
+            translateText(added, langNow);
+            translateAttributes(added, langNow);
           } else if (added.nodeType === Node.TEXT_NODE) {
-            translateNode(added.parentElement, lang);
+            const parent = added.parentElement;
+            if (parent && !parent.closest("script, style, noscript, .lang")) {
+              translateText(parent, langNow);
+            }
           }
         });
       });
@@ -150,8 +141,10 @@
     });
   }
 
-  window.QH_setLang = setLanguage;
-  window.QH_getLang = getLang;
+  window.QH_setLang = applyLanguage;
+  window.QH_getLang = function () {
+    return document.documentElement.lang || "en";
+  };
   window.QH_applyAll = applyLanguage;
 
   if (document.readyState === "loading") {
