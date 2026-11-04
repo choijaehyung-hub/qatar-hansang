@@ -56,23 +56,15 @@
   }
 
   function translateAttributes(root, lang) {
-    root.querySelectorAll("[placeholder], [aria-label]").forEach(function (el) {
-      ["placeholder", "aria-label"].forEach(function (attr) {
-        if (!el.hasAttribute(attr)) return;
-
-        if (!originalAttrs.has(el)) {
-          originalAttrs.set(el, {});
-        }
-
-        const saved = originalAttrs.get(el);
-
-        if (!(attr in saved)) {
-          saved[attr] = el.getAttribute(attr);
-        }
-
-        el.setAttribute(attr, translate(saved[attr], lang));
-      });
-    });
+    root.querySelectorAll("[placeholder], [aria-label], [alt], [title]").forEach(function (el) {
+  ["placeholder", "aria-label", "alt", "title"].forEach(function (attr) {
+    if (!el.hasAttribute(attr)) return;
+    if (!originalAttrs.has(el)) originalAttrs.set(el, {});
+    const saved = originalAttrs.get(el);
+    if (!(attr in saved)) saved[attr] = el.getAttribute(attr);
+    el.setAttribute(attr, translate(saved[attr], lang));
+  });
+});
   }
 
   function applyLanguage(lang) {
