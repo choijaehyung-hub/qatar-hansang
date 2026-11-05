@@ -128,9 +128,11 @@ header::before {
 .bar .mark {
   height: 64px;
   width: 64px;
+  object-fit: contain;
   border-radius: 8px;
-  object-fit: cover;
-  box-shadow: 0 2px 8px rgba(12, 26, 54, 0.15); }
+  box-shadow: 0 2px 8px rgba(12, 26, 54, 0.15);
+  image-rendering: auto;
+}
 
 .lt {
   font-family: Georgia, serif;
