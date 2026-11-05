@@ -125,7 +125,12 @@ header::before {
   text-decoration: none;
   flex-shrink: 0;
 }
-.bar .mark { height: 64px; width: 64px; box-shadow: 0 2px 8px rgba(12, 26, 54, 0.15); }
+.bar .mark {
+  height: 64px;
+  width: 64px;
+  border-radius: 8px;
+  object-fit: cover;
+  box-shadow: 0 2px 8px rgba(12, 26, 54, 0.15); }
 
 .lt {
   font-family: Georgia, serif;
