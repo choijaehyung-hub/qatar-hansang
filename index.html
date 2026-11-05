@@ -184,18 +184,31 @@
   <h2>Contact Us</h2>
   <p class="sub">Get in touch — we reply within one business day.</p>
   <div class="contactbox">
-    <form class="cform" action="mailto:info@qatar-hansang.netinfo@qatar-hansang.net" method="post" enctype="text/plain">
-      <label for="cf-name">Name</label>
-      <input id="cf-name" name="name" type="text" required>
-      <label for="cf-email">Email</label>
-      <input id="cf-email" name="email" type="email" required>
-      <label for="cf-subject">Subject</label>
-      <input id="cf-subject" name="subject" type="text">
-      <label for="cf-msg">Message</label>
-      <textarea id="cf-msg" name="message" rows="3" required></textarea>
-      <button class="btn" type="submit">Send Message</button>
-      <p class="note">By submitting you agree to be contacted about Qatar-Hansang activities.</p>
-    </form>
+    
+<form class="cform" action="https://api.web3forms.com/submit" method="POST">
+
+  <input type="hidden" name="access_key" value="2b73f53a-a3a2-4095-8260-5d57cac4f2ff">
+  <input type="hidden" name="from_name" value="Qatar-Hansang Website">
+  <input type="checkbox" name="botcheck" style="display:none;">
+
+  <label for="cf-name">Name</label>
+  <input id="cf-name" name="name" type="text" autocomplete="name" required>
+
+  <label for="cf-email">Email</label>
+  <input id="cf-email" name="email" type="email" autocomplete="email" required>
+
+  <label for="cf-subject">Subject</label>
+  <input id="cf-subject" name="subject" type="text">
+
+  <label for="cf-msg">Message</label>
+  <textarea id="cf-msg" name="message" rows="3" required></textarea>
+
+  <button class="btn" type="submit">Send Message</button>
+
+  <p class="note">By submitting you agree to be contacted about Qatar-Hansang activities.</p>
+
+</form>
+
     <div class="cinfo">
       <h3>Qatar-Hansang</h3>
       <div class="ci"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M12 22s7-6.2 7-12a7 7 0 1 0-14 0c0 5.8 7 12 7 12z"/><circle cx="12" cy="10" r="2.5"/></svg><div><b>Address</b>14th floor, Commercial Bank Plaza, West Bay, Doha, Qatar</div></div>
